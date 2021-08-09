@@ -39,11 +39,17 @@
             </div>
           </div>
           <div class="md:hidden">
-            <div class="bg-orange-50 mt-1 h-44 flex items-center justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md" ref="filePicker">
+            <div class="bg-orange-50 mt-1 h-44 flex items-center justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
               <div class="space-y-1">
                 <div class="flex">
                   <label for="file-upload" class="p-2 pl-7 pr-7 relative cursor-pointer primary-bg border border-transparent shadow-sm text-sm font-medium rounded-md text-white">
-                    <span>use Camera</span>
+                    <span class="flex items-center ">
+                      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
+                      </svg>
+                      <span class="pl-2">use Camera</span>
+                    </span>
                     <input id="file-upload" name="file-upload" type="file"
                     @change="emitChangeEvent" capture="camera"
                     class="sr-only" />
@@ -53,13 +59,26 @@
                   </label>
                 </div>
                 <div class="text-center text-gray-600 text-xs">or</div>
-                <p class="text-xs text-indigo-500" @click="OpenGallery">
-                  Select from the gallery
+                <p class="text-xs text-indigo-500 flex items-center" @click="OpenGallery">
+                  <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  </svg>
+                  <span class="pl-1">Select from the gallery</span>
                 </p>
               </div>
             </div>
           </div>
-
+          <div v-if="filesSelected.length" class="pt-6">
+            <div class="primary-color text-base font-semibold pb-3">Uploaded files</div>
+            <div :key="file.name" v-for="file of filesSelected" class="help text-sm pb-3 flex justify-between">
+              <span>{{file.name}}</span>
+              <span class="cursor-pointer" @click="removeFile(file)">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </span>
+            </div>
+          </div>
           <div class="pt-7">
             <label class="another-doc cursor-pointer" @click="openFilePicker">+  Upload another document</label>
           </div>
@@ -125,12 +144,18 @@ export default {
             && this.supportedTypes.includes(file.type);
     },
 
+    removeFile(file) {
+      this.filesSelected = this.filesSelected.filter(fs => fs.name !== file.name);
+    },
+
     async emitChangeEvent(event) {
       const { files } = event.type === 'drop' ? event.dataTransfer : event.target;
       if (files.length) {
-        this.filesSelected = Array.from(files).filter(file => this.isSupportedFileTypes(file));
-        if(!this.filesSelected.length) {
+        const filesSelected = Array.from(files).filter(file => this.isSupportedFileTypes(file));
+        if(!filesSelected.length) {
           this.$toasted['error']('Please select the valid file format');
+        } else {
+          this.filesSelected.push(...filesSelected);
         }
       }
     },

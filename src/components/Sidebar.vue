@@ -1,7 +1,7 @@
 <template>
-  <div class="md:w-1/5">
+  <div class="md:w-1/5 header">
     <!-- large screen menu -->
-    <div class="md:flex hidden flex-col h-screen header">
+    <div class="md:flex hidden flex-col h-screen">
       <header class="p-8">
         <div class="bg-white px-7 py-2 text-base rounded-lg">
           Company Logo
@@ -46,7 +46,7 @@
       </nav>
     </div>
     <!-- mobile Menu -->
-    <div class="-mr-2 pl-2 flex md:hidden header">
+    <div class="-mr-2 pl-2 flex md:hidden">
       <button type="button" class="inline-flex items-center justify-center p-2 rounded-md text-white hover:text-gray-400 text-2xl" aria-controls="mobile-menu" aria-expanded="false" @click="toggleMenu">
             <span class="sr-only">Open main menu</span>
             <svg :class="{'block': !isMobileOpened, 'hidden': isMobileOpened }" class="h-6 w-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
@@ -58,8 +58,8 @@
             <span class="pl-4">{{routeName}}</span>
           </button>
     </div>
-    <div class="md:hidden h-screen" id="mobile-menu" v-if="isMobileOpened">
-      <div class="pb-3 space-y-1">
+    <div class="md:hidden h-screen content" id="mobile-menu" v-if="isMobileOpened">
+      <div class="pb-3 space-y-1 text-center">
         <router-link
           tag="a"
           :to="{ name: 'home' }"
@@ -130,5 +130,9 @@ export default {
   .router-link-exact-active {
     background-color: #1FA7D9;
     @apply text-white;
+  }
+
+  .content {
+    background: #E5E5E5;
   }
 </style>
