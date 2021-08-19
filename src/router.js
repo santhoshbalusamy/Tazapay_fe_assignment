@@ -3,6 +3,7 @@ import Router from 'vue-router';
 
 const Home = () => import('./views/Home.vue');
 const Transfer = () => import('./views/Transfer.vue');
+const seatBooking = () => import('./views/seatBooking.vue');
 
 Vue.use(Router);
 
@@ -32,6 +33,11 @@ const router = new Router({
       path: '/reports',
       name: 'reports',
       component: Home,
+    },
+    {
+      path: '/seat-booking',
+      name: 'seatBooking',
+      component: seatBooking,
     },
   ],
 });
