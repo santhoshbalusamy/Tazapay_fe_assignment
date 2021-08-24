@@ -12,7 +12,17 @@ const DataService = {
   saveAgreement(data) {
     return axios.patch(`${baseUrl}/agreement`,data, { headers })
     .then(res => res.data);
-  }
-};
+  },
+
+  getVechicleList() {
+    return axios.get('https://swapi.dev/api/vehicles/', { headers })
+    .then(res => res.data);
+  },
+
+  getVechicleDetails({ vechicleId }) {
+    return axios.get(`https://swapi.dev/api/vehicles/${vechicleId}`, { headers })
+    .then(res => res.data);
+  },
+ };
 
 export default DataService;

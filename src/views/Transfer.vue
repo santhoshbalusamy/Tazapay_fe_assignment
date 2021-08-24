@@ -47,7 +47,7 @@ export default {
     ReleaseConditions,
     PaymentDetails,
   },
-    computed: {
+  computed: {
     ...mapGetters([
       'agreements',
       'isDataFetched',

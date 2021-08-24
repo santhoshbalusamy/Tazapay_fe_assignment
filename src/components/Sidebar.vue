@@ -50,6 +50,13 @@
           @click.native="routeHandler('Seat Booking')">
           Seat booking
         </router-link>
+        <router-link
+          tag="a"
+          :to="{ name: 'Vechicles' }"
+          class="text-gray-300 hover:text-white px-8 py-4 text-sm font-medium"
+          @click.native="routeHandler('Vechicles')">
+          Vechicles
+        </router-link>
       </nav>
     </div>
     <!-- mobile Menu -->
@@ -108,6 +115,13 @@
           class="block px-4 py-2 text-base font-medium"
           @click.native="routeHandler('Seat Booking')">
           Seat booking
+        </router-link>
+        <router-link
+          tag="a"
+          :to="{ name: 'Vechicles' }"
+          class="block px-4 py-2 text-base font-medium"
+          @click.native="routeHandler('Vechicles')">
+          Vechicles
         </router-link>
       </div>
     </div>

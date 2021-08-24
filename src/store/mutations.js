@@ -9,7 +9,15 @@ const mutations = {
 
  DATA_FETCH_COMPLETE(state) {
   state.isDataFetched = true;
-},
+  },
+
+  SET_VECHICLES(state, payload) {
+    state.vechicles = payload;
+  },
+
+  SET_VECHICLE_DETAILS(state, payload) {
+    state.vechicleDetails[payload.vechicleName] = payload.details;
+  },
 };
 
 export default mutations;

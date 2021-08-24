@@ -11,6 +11,8 @@ export default new Vuex.Store({
   state: {
     isDataFetched: false,
     agreements: {},
+    vechicles: [],
+    vechicleDetails: {},
   },
   getters,
   mutations,
